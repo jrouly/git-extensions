@@ -18,7 +18,7 @@ def get_credentials():
                 'github.username'
             ]).decode('utf-8').strip()
     except CalledProcessError:
-        raise Exception('github.username not set.')
+        raise Exception('github.username not set in gitconfig')
 
     try:
         token = check_output([
@@ -28,8 +28,6 @@ def get_credentials():
                 'github.token'
             ]).decode('utf-8').strip()
     except CalledProcessError:
-        print('github.token not set.')
-        raise Exception('github.token not set.')
+        raise Exception('github.token not set in gitconfig')
 
     return (username, token)
-

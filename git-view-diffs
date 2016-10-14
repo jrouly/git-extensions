@@ -5,7 +5,7 @@ import sys
 
 from common.credentials import get_credentials
 from common.github import get_github
-from common import BASE_GITHUB_URL
+from common import BASE_GITHUB_URL, ERROR
 
 def parse_args():
     """
@@ -61,7 +61,7 @@ def main():
     else:
         named_tags = [tag for tag in tags if tag['name'] == args.base]
         if len(named_tags) == 0:
-            raise Exception('No tag named {} found.'.format(args.base))
+            raise Exception('No tag named \'{}\' found.'.format(args.base))
         base = named_tags[0]['name']
         base_sha = tags[0]['commit']['sha']
 
@@ -87,4 +87,8 @@ def main():
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception as e:
+        print(e)
+        sys.exit(ERROR)

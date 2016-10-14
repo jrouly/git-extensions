@@ -16,6 +16,6 @@ def get_github(repo, endpoint, username, token):
     )
 
     if response.status_code >= 400:
-        raise Exception('Unable to read from GitHub. Status={}'.format(response.status_code))
+        raise Exception('Unable to read from GitHub, status={}'.format(response.status_code))
 
     return response.json()
