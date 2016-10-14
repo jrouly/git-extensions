@@ -73,12 +73,16 @@ def main():
 
     def format_commit_message(commit):
         date = commit['commit']['author']['date']
+        login = commit['author']['login']
         message = commit['commit']['message']
-        return '[{}] {}'.format(date, message)
+        return '[{}] @{}\n{}'.format(date, login, message)
 
     commit_messages = [format_commit_message(c) for c in commits['commits']]
-    print('\n\n'.join(commit_messages))
-    print('\n')
+    formatted_commit_messages = '\n\n'.join(commit_messages)
+    if args.verbose:
+        print(formatted_commit_messages)
+        print('\n')
+
     print(BASE_GITHUB_URL + '/' + args.repo + '/compare/{base}...{head}'.format(base=base, head=args.head))
 
 
