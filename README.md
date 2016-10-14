@@ -24,3 +24,7 @@ Place the following configurations in your gitconfig:
     optional arguments:
       -h, --help     show this help message and exit
       -v, --verbose  print full commit messages
+
+# todo
+
+* Ability to figure out current repository so the repo param is not necessary.

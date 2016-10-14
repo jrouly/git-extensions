@@ -1,4 +1,5 @@
 import requests
+import requests.packages.urllib3
 from common import BASE_GITHUB_API_URL
 from requests.auth import HTTPBasicAuth
 
@@ -9,6 +10,7 @@ def get_github(repo, endpoint, username, token):
     :param repo user/repo repository
     :param endpoint the github API endpoint
     """
+    requests.packages.urllib3.disable_warnings()
 
     response = requests.get(
             BASE_GITHUB_API_URL + '/repos/' + repo + endpoint,

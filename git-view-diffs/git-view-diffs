@@ -79,12 +79,16 @@ def main():
 
     commit_messages = [format_commit_message(c) for c in commits['commits']]
     formatted_commit_messages = '\n\n'.join(commit_messages)
+    diff_url = BASE_GITHUB_URL + '/' + args.repo + '/compare/{base}...{head}'.format(base=base, head=args.head)
+
     if args.verbose:
         print(formatted_commit_messages)
         print('\n')
 
-    print(BASE_GITHUB_URL + '/' + args.repo + '/compare/{base}...{head}'.format(base=base, head=args.head))
-
+    num_untagged_commits = len(commits['commits'])
+    untagged_commits = 'There are {} commit(s) between these versions.'.format(num_untagged_commits)
+    print(untagged_commits)
+    print(diff_url)
 
 if __name__ == '__main__':
     try:
