@@ -1,20 +1,15 @@
-#!/usr/bin/env python
-
-import sys
-import requests
-
 from subprocess import call, check_output, CalledProcessError
 
-# Generic error status code.
-ERROR = 1
-
 def get_credentials():
-    '''
+    """
     Pull github credentials from ~/.gitconfig.
     Expects: github.username
-             github.password
+             github.token
     Will fail if both are not found.
-    '''
+
+    :return: (username, token)
+    """
+
     try:
         username = check_output([
                 'git',
@@ -26,22 +21,15 @@ def get_credentials():
         raise Exception('github.username not set.')
 
     try:
-        password = check_output([
+        token = check_output([
                 'git',
                 'config',
                 '--get',
-                'github.password'
+                'github.token'
             ]).decode('utf-8').strip()
     except CalledProcessError:
-        print('github.password not set.')
-        raise Exception('github.password not set.')
+        print('github.token not set.')
+        raise Exception('github.token not set.')
 
-    return (username, password)
+    return (username, token)
 
-
-def main():
-    (username, password) = get_credentials()
-
-
-if __name__ == '__main__':
-    sys.exit(main())
