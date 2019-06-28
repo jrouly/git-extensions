@@ -11,11 +11,11 @@ main() {
     case ${opt} in
       h )
         echo "Usage:"
-        echo "  git-untagged -h            Display this help message."
-        echo "  git-untagged -d            Display the untagged diff instead of listing revisions."
-        echo "  git-untagged -u <remote>   Specify the remote to use instead of origin."
-        echo "  git-untagged -f            Fetch tags first."
-        echo "  git-untagged               List untagged commits on master."
+        echo "  git untagged -h            Display this help message."
+        echo "  git untagged -d            Display the untagged diff instead of listing revisions."
+        echo "  git untagged -u <remote>   Specify the remote to use instead of origin."
+        echo "  git untagged -f            Fetch tags first."
+        echo "  git untagged               List untagged commits on master."
         exit 0
         ;;
 
