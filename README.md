@@ -1,30 +1,13 @@
 # git extensions
 
-Place these on your `$PATH` somewhere and git will pick them up automagically.
+Helpful git extensions.
+Place this repo on your `$PATH` somewhere and git will pick them up automagically.
 
-#### Requirements
+## [git-untagged](git-untagged)
 
-Place the following configurations in your gitconfig:
-
-    [github]
-       username = yourusername
-       token = yourgithubapitoken
-
-## [git-view-diffs](git-view-diffs/)
-
-    usage: git-view-diffs [-h] [-v] repo [base] [head]
-    
-    git-view-diffs
-    
-    positional arguments:
-      repo           user/repo
-      base           base ref/tag, defaults to 'latest'
-      head           head ref/tag, defaults to 'master'
-    
-    optional arguments:
-      -h, --help     show this help message and exit
-      -v, --verbose  print full commit messages
-
-# todo
-
-* Ability to figure out current repository so the repo param is not necessary.
+    Usage:
+      git-untagged -h            Display this help message.
+      git-untagged -d            Display the untagged diff instead of listing revisions.
+      git-untagged -u <remote>   Specify the remote to use instead of origin.
+      git-untagged -f            Fetch tags first.
+      git-untagged               List untagged commits on master.

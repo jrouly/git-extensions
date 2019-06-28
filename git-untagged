@@ -1,0 +1,79 @@
+#!/usr/bin/env sh
+
+fetch_tags() {
+  # fetch_tags <remote>
+  local remote=$1
+  git fetch --tags $remote
+}
+
+main() {
+
+  local workingdir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+  local remote="origin"
+  local fetch=""
+  local diff=""
+
+  while getopts ":hdfu:" opt; do
+    case ${opt} in
+      h )
+        # git-untagged -h
+        # Display usage.
+        echo "Usage:"
+        echo "  git-untagged -h            Display this help message."
+        echo "  git-untagged -d            Display the untagged diff instead of listing revisions."
+        echo "  git-untagged -u <remote>   Specify the remote to use instead of origin."
+        echo "  git-untagged -f            Fetch tags first."
+        echo "  git-untagged               List untagged commits on master."
+        exit 0
+        ;;
+
+      d )
+        diff="true"
+        ;;
+
+      f )
+        fetch="true"
+        ;;
+
+      u )
+        remote=$OPTARG
+        ;;
+
+      \? )
+        echo "Invalid Option: -$OPTARG" 1>&2
+        exit 1
+        ;;
+
+      : )
+        echo "Invalid Option: -$OPTARG requires an argument" 1>&2
+        exit 1
+        ;;
+
+    esac
+  done
+  shift $((OPTIND -1))
+
+  # If fetch is specified, then fetch from the remote.
+  if [ $fetch ] ; then git fetch --tags $remote 2> /dev/null ; fi
+
+  # List all tags in order and take the latest (last).
+  local latest=$(git tag --sort=v:refname | tail -n 1)
+
+  if [ ! $latest ]
+  then
+    echo "No local tags. Consider specifying -f to fetch tags."
+    exit 0
+  fi
+
+  if [ $diff ]
+  then
+    # Show the diff between latest tag and remote master, if any.
+    git diff $latest $remote/master
+  else
+    # List the refs between the latest tag and the remote master, if any.
+    git rev-list $latest..$remote/master
+  fi
+
+}
+
+main "$@"
